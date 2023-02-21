@@ -102,6 +102,13 @@ function handleResponse(data) {
             description: page.description,
             link: `https://en.wikipedia.org/wiki/${encodeURIComponent(page.title)}`
         }
+        if (cardData.description === undefined) {
+            cardData.description = page.extract;
+        }
+        // Show nothing if the description dat is null or contains HTML tags
+        if (cardData.description === undefined || cardData.description.match(/<.+>/)) {
+            cardData.description = "";
+        }
         cardDataArray.push(cardData);
     }
 
@@ -112,5 +119,5 @@ function handleResponse(data) {
 
 // CORS workaround
 const script = document.createElement('script');
-script.src = wikiUrl + `/w/api.php?action=query&generator=random&grnnamespace=0&grnlimit=${cardCount / 2}&prop=info|description&format=json&callback=handleResponse`;
+script.src = wikiUrl + `/w/api.php?action=query&generator=random&grnnamespace=0&grnlimit=${cardCount / 2}&prop=info|description|extracts&format=json&callback=handleResponse`;
 document.body.appendChild(script);
