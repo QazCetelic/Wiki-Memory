@@ -1,0 +1,97 @@
+:root {
+    --text-color: beige;
+    --background-color: wheat;
+}
+
+* {
+    font-family: sans-serif;
+}
+
+body {
+    margin: 0;
+    background: var(--background-color);
+}
+
+#frame {
+    padding: 1.5em 8em 0 8em;
+}
+
+#cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.cards-fail {
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    pointer-events: none;
+}
+
+.card {
+    width: 15em;
+    height: 20em;
+    perspective: 1000px;
+    margin: 1em;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.card-selected .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+    background-color: #6d695c;
+
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-front {
+    color: var(--text-color);
+
+    /* Credits for pattern to http://projects.verou.me/css3patterns/#argyle */
+    background-image:
+            repeating-linear-gradient(120deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px),
+            repeating-linear-gradient(60deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px),
+            linear-gradient(60deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1)),
+            linear-gradient(120deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1));
+    background-size: 70px 120px;
+}
+
+.card-back {
+    color: white;
+    transform: rotateY(180deg);
+    font-size: 0.75em;
+}
+
+.card-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 5em 0.5em 0.5em;
+}
+
+.card-description {
+    margin: 0.5em;
+}
+
+.card-link {
+    position: absolute;
+    bottom: 2em;
+    color: var(--text-color);
+}
