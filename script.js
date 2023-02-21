@@ -15,7 +15,8 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
 const cardCount = Math.min(Math.max(params.cardCount ? parseInt(params.cardCount) : 10, 4), 30);
 
 let wikiUrl = params.wikiUrl ? params.wikiUrl : "wikipedia.org";
-if (!wikiUrl.startsWith("http://")) wikiUrl = "http://" + wikiUrl;
+if (!wikiUrl.startsWith("https://")) wikiUrl = "https://" + wikiUrl;
+if (wikiUrl.startsWith("http://")) wikiUrl = "https://" + wikiUrl.slice(7);
 if (wikiUrl.endsWith("/")) wikiUrl = wikiUrl.slice(0, -1);
 
 function flipCard(card) {
@@ -78,7 +79,7 @@ function addCard(title, description) {
     let cardLink = document.createElement("a");
     cardLink.classList.add("card-link");
     cardLink.href = `${wikiUrl}/wiki/${encodeURIComponent(card.value)}`;
-    cardLink.innerText = `Article on ${wikiUrl.replace("http://", "").split(".")[0]}`;
+    cardLink.innerText = `Article on ${wikiUrl.replace("https://", "").split(".")[0]}`;
     cardLink.target = "_blank";
     cardBack.appendChild(cardLink);
 
